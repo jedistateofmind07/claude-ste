@@ -1,0 +1,12 @@
+Install the /ste skill (Simplified Technical English for Claude Code) from https://github.com/jedistateofmind07/claude-ste
+
+Do these steps:
+1. Find my Claude folder. Use $CLAUDE_CONFIG_DIR if it is set, else ~/.claude. Call it DIR.
+2. Use curl to download these two files. Make the folders if they do not exist. Replace old copies.
+   - https://raw.githubusercontent.com/jedistateofmind07/claude-ste/main/skills/ste/SKILL.md to DIR/skills/ste/SKILL.md
+   - https://raw.githubusercontent.com/jedistateofmind07/claude-ste/main/output-styles/ste.md to DIR/output-styles/ste.md
+3. Make sure that each file starts with "---". If a download failed, stop and tell me.
+4. Ask me one multiple-choice question: "STE in every session" or "Only when I type /ste".
+5. If I choose "STE in every session": download https://raw.githubusercontent.com/jedistateofmind07/claude-ste/main/memory/CLAUDE-ste.md and show it to me. Then add it to the end of DIR/CLAUDE.md. Make that file if it does not exist. If DIR/CLAUDE.md already has a block from "<!-- ste:start" to "<!-- ste:end -->", replace only that block. Do not change other text in the file.
+6. If I choose "Only when I type /ste": remove that block from DIR/CLAUDE.md if it is there. Make no other memory change.
+7. Tell me what you installed. Tell me that it works in new sessions: /ste turns STE on, and /ste off turns it off.
