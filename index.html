@@ -93,11 +93,18 @@ Do these steps:
   <div class="compare">
     <div class="card">
       <div class="label">Before</div>
-      <p class="before">Looks like the deploy blew up — the build couldn't find env.ts, so I'm going to go ahead and fix the import path, which should hopefully sort it out.</p>
+      <p class="before">So, heads up — I dug into it and it looks like the migration I kicked off earlier kind of went sideways partway through. Roughly 40% of the users table got backfilled before it choked on a null in legacy_id, so we're sort of stuck in a weird half-migrated state right now. I'd probably hold off on shipping anything for the time being. We could spin up a snapshot restore, or honestly we could just patch the nulls and re-run it if we're feeling brave — I'd maybe lean towards the latter, but it's your call.</p>
     </div>
     <div class="card">
       <div class="label">With /ste</div>
-      <p class="good">The deploy failed. The build cannot find the file <code>env.ts</code>. I will fix the import path. Then I will run the build again.</p>
+      <p class="good"><strong>Warning: Do not deploy until the migration is complete.</strong></p>
+      <p class="good">The migration stopped before the end. 40% of the rows in the <code>users</code> table have the new data. 60% do not. The cause is a null value in <code>legacy_id</code>.</p>
+      <p class="good">You can do one of these two things:</p>
+      <ol class="good">
+        <li>Restore the snapshot. This option is safer.</li>
+        <li>Replace the null values and run the migration again. This option is faster.</li>
+      </ol>
+      <p class="good">Tell me which option to use.</p>
     </div>
   </div>
   <p class="hint">STE applies to Claude's chat replies, questions, and recaps. Commits, PRs, docs, and messages for other people keep their usual style.</p>
